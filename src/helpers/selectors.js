@@ -1,11 +1,18 @@
-const getAppointmentsForDay = (state, day) => {
-  console.log("state in function: ", state);
-  
+const getAppointmentsForDay = (state, day) => {  
   const daySelected = state.days.find(d => d.name === day);
-  console.log("day selected: ", daySelected);
   const appointments = daySelected ? daySelected.appointments : [];
-  console.log(appointments);
   return appointments ? appointments.map(a => state.appointments[`${a}`]) : [];
 };
 
-export { getAppointmentsForDay };
+const getInterview = (state, interview) => {
+  if (!interview) {
+    return null;
+  }
+  const foundInterview = {
+    interviewer: state.interviewers[interview.interviewer],
+    student: interview.student
+  };
+  return foundInterview;
+};
+
+export { getAppointmentsForDay, getInterview };
