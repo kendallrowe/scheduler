@@ -5,7 +5,7 @@ import DayList from "./DayList";
 import "components/Application.scss";
 import Appointment from "./Appointment/index";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
-import { reject } from "q";
+
 
 export default function Application() {
 
@@ -20,7 +20,6 @@ export default function Application() {
   const setDay = day => setState(prev => ({ ...prev, day }));
   const setDays = days => setState(prev => ({ ...prev, days }));
   const setAppointments = appointments => setState(prev => ({ ...prev, appointments }));
-  // const setInterviewer = interviewer => setState(prev => ({ ...prev, interviewer }));
   const setInterviewers = interviewers => setState(prev => ({ ...prev, interviewers }));
 
   useEffect(() => {
@@ -52,14 +51,14 @@ export default function Application() {
 
     return new Promise((resolve, reject) => {
       return axios.put(`http://localhost:3001/api/appointments/${id}`, appointment)
-      .then((response)=> {
+      .then(response=> {
         setState({
           ...state,
           appointments
         });
         resolve(response);
       })
-      .catch((e) => {
+      .catch(e => {
         reject(e)
       });
     })
@@ -78,14 +77,14 @@ export default function Application() {
 
     return new Promise((resolve, reject) => {
       return axios.delete(`http://localhost:3001/api/appointments/${id}`)
-      .then((response)=> {
+      .then(response => {
         setState({
           ...state,
           appointments
         });
         resolve(response);
       })
-      .catch((e) => {
+      .catch(e => {
         reject(e)
       });
     })
