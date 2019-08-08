@@ -5,6 +5,7 @@ import DayList from "./DayList";
 import "components/Application.scss";
 import Appointment from "./Appointment/index";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
+import { reject } from "q";
 
 export default function Application() {
 
@@ -49,12 +50,19 @@ export default function Application() {
       [id]: appointment
     };
 
-    setState({
-      ...state,
-      appointments
-    });
-
-    return axios.put(`http://localhost:3001/api/appointments/${id}`, appointment)
+    return new Promise((resolve, reject) => {
+      return axios.put(`http://localhost:3001/api/appointments/${id}`, appointment)
+      .then((response)=> {
+        setState({
+          ...state,
+          appointments
+        });
+        resolve(response);
+      })
+      .catch((e) => {
+        reject(e)
+      });
+    })
   };
 
   const deleteInterview = (id) => {
@@ -68,12 +76,20 @@ export default function Application() {
       [id]: appointment
     };
 
-    setState({
-      ...state,
-      appointments
-    });
-
-    return axios.delete(`http://localhost:3001/api/appointments/${id}`);
+    return new Promise((resolve, reject) => {
+      return axios.delete(`http://localhost:3001/api/appointments/${id}`)
+      .then((response)=> {
+        setState({
+          ...state,
+          appointments
+        });
+        resolve(response);
+      })
+      .catch((e) => {
+        reject(e)
+      });
+    })
+    
   };
 
   const appointments = getAppointmentsForDay(state, state.day);
