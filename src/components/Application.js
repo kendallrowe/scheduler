@@ -11,7 +11,7 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: [],
+    appointments: {},
     interviewers: {}
   });
 
@@ -29,10 +29,7 @@ export default function Application(props) {
     .then(all => {
       setDays(all[0].data);
       setAppointments(all[1].data);
-      setInterviewers(all[2].data)
-    })
-    .then(() => {
-
+      setInterviewers(all[2].data);
     })
     .catch(e => {
       console.log(e);
@@ -40,10 +37,11 @@ export default function Application(props) {
   }, []);
 
   const appointments = getAppointmentsForDay(state, state.day);
-  
-  const schedule = appointments.map((appointment) => {
-    const interview = getInterview(state, appointment.interview);
-    
+  let schedule=[];
+  if (appointments && appointments[0] && state.interviewers) {
+    schedule = appointments.map((appointment) => {
+      const interview = getInterview(state, appointment.interview);
+      
       return (
         <Appointment
         key={appointment.id}
@@ -51,8 +49,9 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         />
-    );
-  });
+      );
+    });
+  }
     
     return (
     <main className="layout">
