@@ -6,7 +6,7 @@ import "components/Application.scss";
 import Appointment from "./Appointment/index";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
-export default function Application(props) {
+export default function Application() {
 
   const [state, setState] = useState({
     day: "Monday",
@@ -19,7 +19,7 @@ export default function Application(props) {
   const setDay = day => setState(prev => ({ ...prev, day }));
   const setDays = days => setState(prev => ({ ...prev, days }));
   const setAppointments = appointments => setState(prev => ({ ...prev, appointments }));
-  const setInterviewer = interviewer => setState(prev => ({ ...prev, interviewer }));
+  // const setInterviewer = interviewer => setState(prev => ({ ...prev, interviewer }));
   const setInterviewers = interviewers => setState(prev => ({ ...prev, interviewers }));
 
   useEffect(() => {
@@ -38,6 +38,10 @@ export default function Application(props) {
     });
   }, []);
 
+  const bookInterview = (id, interview) => {
+    console.log(id, interview);
+  };
+
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewersForDay = getInterviewersForDay(state, state.day)
   let schedule=[];
@@ -52,6 +56,7 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         interviewers={interviewersForDay}
+        bookInterview={bookInterview}
         />
       );
     });

@@ -30,7 +30,7 @@ export default function Form(props) {
       <div className="appointment__card-right">
         <div className="appointment__actions">
           <Button danger={true} onClick={props.onCancel}>Cancel</Button>
-          <Button confirm={true} onClick={props.onSave}>Save</Button>
+          <Button confirm={true} onClick={e => props.onSave(name, interviewer)}>Save</Button>
         </div>
       </div>
     </article>
