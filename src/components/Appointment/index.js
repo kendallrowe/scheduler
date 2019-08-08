@@ -4,15 +4,18 @@ import Header from "./Header";
 import Empty from "./Empty";
 import Show from "./Show";
 import Form from "./Form";
+import Status from "./Status";
 import { useVisualMode } from "../../hooks/useVisualMode";
 const  EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
+const SAVING = "SAVING";
 
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
 
   const save = (name, interviewer) => {
+    transition(SAVING);
     props.bookInterview(props.id, {
       student: name,
       interviewer
@@ -24,6 +27,7 @@ export default function Appointment(props) {
     <article className="appointment">
       <Header time={props.time}/>
       {mode === EMPTY && <Empty onAdd={(e) => transition(CREATE)}/>}
+      {mode === SAVING && <Status message="SAVING"/>}
       {mode === SHOW && (
         <Show
           student={props.interview.student}
