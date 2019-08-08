@@ -57,6 +57,25 @@ export default function Application() {
     return axios.put(`http://localhost:3001/api/appointments/${id}`, appointment)
   };
 
+  const deleteInterview = (id) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...null }
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    setState({
+      ...state,
+      appointments
+    });
+
+    return axios.delete(`http://localhost:3001/api/appointments/${id}`);
+  };
+
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewersForDay = getInterviewersForDay(state, state.day)
   let schedule=[];
@@ -72,6 +91,7 @@ export default function Application() {
         interview={interview}
         interviewers={interviewersForDay}
         bookInterview={bookInterview}
+        deleteInterview={deleteInterview}
         />
       );
     });
