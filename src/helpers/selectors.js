@@ -15,4 +15,10 @@ const getInterview = (state, interview) => {
   return foundInterview;
 };
 
-export { getAppointmentsForDay, getInterview };
+const getInterviewersForDay = (state, day) => {
+  const daySelected = state.days.find(d => d.name === day);
+  const appointments = daySelected ? daySelected.appointments : [];
+  return appointments ? appointments.map(a => state.appointments[`${a}`]) : [];
+};
+
+export { getAppointmentsForDay, getInterview, getInterviewersForDay };
