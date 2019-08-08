@@ -5,8 +5,10 @@ import Empty from "./Empty";
 import Show from "./Show";
 import Form from "./Form";
 import Status from "./Status";
+import Confirm from "./Confirm";
 import { useVisualMode } from "../../hooks/useVisualMode";
-const  EMPTY = "EMPTY";
+
+const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
@@ -37,12 +39,13 @@ export default function Appointment(props) {
       {mode === EMPTY && <Empty onAdd={(e) => transition(CREATE)}/>}
       {mode === SAVING && <Status message="SAVING"/>}
       {mode === DELETING && <Status message="DELETING"/>}
+      {mode === CONFIRM && <Confirm onConfirm={deleteThisInterview} onCancel={e => back()} message="Delete the appointment?"/>}
       {mode === SHOW && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onEdit={e => console.log("edited")}
-          onDelete={deleteThisInterview}
+          onDelete={e => transition(CONFIRM)}
           mode={mode}
         />
       )}
