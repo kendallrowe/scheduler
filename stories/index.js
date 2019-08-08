@@ -230,7 +230,7 @@ storiesOf("Form", module)
 .add("Form create mode", () => {
   return <Form 
     name={""}
-    interviewer={-1}
+    interviewer={null}
     interviewers={interviewers}
     onSave={e => console.log("saved")}
     onCancel={e => console.log("cancel")}
