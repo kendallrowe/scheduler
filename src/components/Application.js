@@ -39,7 +39,6 @@ export default function Application() {
   }, []);
 
   const bookInterview = (id, interview) => {
-    console.log(id, interview);
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -54,6 +53,8 @@ export default function Application() {
       ...state,
       appointments
     });
+
+    return axios.put(`http://localhost:3001/api/appointments/${id}`, appointment)
   };
 
   const appointments = getAppointmentsForDay(state, state.day);
