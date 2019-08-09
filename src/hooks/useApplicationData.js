@@ -1,7 +1,7 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const useVisualMode = (FIRST) => {
+const useApplicationData = () => {
 
   const [state, setState] = useState({
     day: "Monday",
@@ -16,20 +16,21 @@ const useVisualMode = (FIRST) => {
   const setAppointments = appointments => setState(prev => ({ ...prev, appointments }));
   const setInterviewers = interviewers => setState(prev => ({ ...prev, interviewers }));
 
- 
-  Promise.all([
-    axios.get(`http://localhost:3001/api/days`),
-    axios.get(`http://localhost:3001/api/appointments`),
-    axios.get('http://localhost:3001/api/interviewers')
-  ])
-  .then(all => {
-    setDays(all[0].data);
-    setAppointments(all[1].data);
-    setInterviewers(all[2].data);
-  })
-  .catch(e => {
-    console.log(e);
-  });
+  useEffect(() => {
+    Promise.all([
+      axios.get(`http://localhost:3001/api/days`),
+      axios.get(`http://localhost:3001/api/appointments`),
+      axios.get('http://localhost:3001/api/interviewers')
+    ])
+    .then(all => {
+      setDays(all[0].data);
+      setAppointments(all[1].data);
+      setInterviewers(all[2].data);
+    })
+    .catch(e => {
+      console.log(e);
+    });
+  }, []);
   
 
   const bookInterview = (id, interview) => {
@@ -90,6 +91,6 @@ const useVisualMode = (FIRST) => {
     bookInterview,
     deleteInterview 
   };
-  
 }
-export { useVisualMode }
+
+export { useApplicationData }
