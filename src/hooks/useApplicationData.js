@@ -7,6 +7,8 @@ const useApplicationData = () => {
   const SET_DAY_SPOTS_REMAINING = "SET_DAY_SPOTS_REMAINING";
   const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
   const SET_INTERVIEW = "SET_INTERVIEW";
+  const SET_SOCKET = "SET_SOCKET";
+  const SEND_MESSAGE = "SEND_MESSAGE";
 
   const reducer = (state, action) => {
     switch (action.type) {
@@ -37,6 +39,7 @@ const useApplicationData = () => {
           interviewers: action.interviewers
         };
       case SET_INTERVIEW: {
+        console.log(action);
         const appointment = {
           ...state.appointments[action.id],
           interview: action.interview
@@ -50,8 +53,16 @@ const useApplicationData = () => {
         return {
           ...state,
           appointments
-        }
+        };
       }
+      case SET_SOCKET:
+        return {
+          ...state,
+          socket: action.socket
+        };
+      case SEND_MESSAGE:
+          state.socket.send(action.message);
+          return state;
       default:
         throw new Error(
           `Tried to reduce with unsupported action type: ${action.type}`
@@ -74,16 +85,30 @@ const useApplicationData = () => {
       axios.get('http://localhost:3001/api/interviewers')
     ])
     .then(all => {
-      dispatch(({
+      dispatch({
         type: SET_APPLICATION_DATA, 
         days: all[0].data, 
         appointments: all[1].data, 
         interviewers: all[2].data 
-      }));
+      });
     })
     .catch(e => {
       console.log(e);
     });
+
+    // Socket Connection
+    // Web Socket connection on load
+    const ws = new WebSocket('ws://localhost:3001');
+    dispatch({type: SET_SOCKET, socket: ws});
+    ws.addEventListener('open', () => {
+      console.log("opened websocket");
+      // dispatch({type: SEND_MESSAGE, message: "ping"})
+    });
+    ws.addEventListener('message', (event) => {
+      console.log("recieved message", event.data);
+      dispatch(JSON.parse(event.data));
+    });
+    return () => { ws.close(); };
   }, []);
 
   const setDay = day => dispatch(({ type: SET_DAY, day }));

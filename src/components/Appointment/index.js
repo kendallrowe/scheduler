@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "components/Appointment/styles.scss";
 import Header from "./Header";
 import Empty from "./Empty";
@@ -41,6 +41,16 @@ export default function Appointment(props) {
     .catch(err => transition(ERROR_DELETE, true));
   };
 
+  useEffect(() => {
+    if (props.interview && mode === EMPTY) {
+      transition(SHOW);
+    }
+
+    if (!props.interview && mode === SHOW) {
+      transition(EMPTY);
+    }
+  }, [transition, props.interview, mode]);
+
   return (
     <article className="appointment">
       <Header time={props.time}/>
@@ -50,7 +60,7 @@ export default function Appointment(props) {
       {mode === DELETING && <Status message="DELETING"/>}
       {mode === ERROR_DELETE && <Error message="Could not delete appointment." onClose={e => back()}/>}
       {mode === CONFIRM && <Confirm onConfirm={deleteThisInterview} onCancel={e => back()} message="Delete the appointment?"/>}
-      {mode === SHOW && (
+      {mode === SHOW && props.interview && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
