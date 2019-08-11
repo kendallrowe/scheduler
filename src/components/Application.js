@@ -13,7 +13,6 @@ export default function Application() {
     bookInterview,
     deleteInterview
   } = useApplicationData();
-  console.log(state);
 
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewersForDay = getInterviewersForDay(state, state.day)
