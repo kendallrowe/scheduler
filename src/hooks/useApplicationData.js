@@ -1,10 +1,10 @@
+// eslint-disable-next-line
 import React, { useEffect, useReducer } from "react";
 import axios from "axios";
 
 const useApplicationData = () => {
 
   const SET_DAY = "SET_DAY";
-  const SET_DAY_SPOTS_REMAINING = "SET_DAY_SPOTS_REMAINING";
   const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
   const SET_INTERVIEW = "SET_INTERVIEW";
   const SET_SOCKET = "SET_SOCKET";
