@@ -96,18 +96,14 @@ const useApplicationData = () => {
         appointments: all[1].data, 
         interviewers: all[2].data 
       });
-    })
-    .catch(e => {
-      console.log(e);
     });
 
     // Socket Connection
     // Web Socket connection on load
     const ws = new WebSocket('ws://localhost:3001');
     dispatch({type: SET_SOCKET, socket: ws});
-    ws.addEventListener('open', () => {
-      console.log("opened websocket");
-    });
+    // ws.addEventListener('open', () => {
+    // });
     ws.addEventListener('message', (event) => {
       dispatch(JSON.parse(event.data));
     });
