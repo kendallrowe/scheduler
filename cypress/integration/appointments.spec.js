@@ -31,7 +31,7 @@ describe("Appointments", () => {
   });
 
   it("should edit an interview", () => {
-    // Clicks on the "Add" button in second appointment
+    // Clicks on the "Edit" button in first appointment
     cy.get("[alt='Edit']")
     .first()
     .click({ force: true })
@@ -52,5 +52,27 @@ describe("Appointments", () => {
     // // Confirm booked appointment
     cy.contains(".appointment__card--show", "Kendall Rowe");
     cy.contains(".appointment__card--show", "Tori Malcolm");
+  });
+
+  it("should cancel an interview", () => {
+    // Clicks on the "Delete" button in first appointment
+    cy.get("[alt='Delete']")
+    .first()
+    .click({ force: true })
+
+    // // Click the confirm button
+    cy.contains(".button--danger", "Confirm")
+    .click()
+
+    // // Confirm deleting appointment
+    cy.contains("DELETING").should("exist");
+
+    // Confirm deleting appointment goes away
+    cy.contains("DELETING").should("not.exist");
+
+
+    // Confirm appointment has been removed
+    cy.contains(".appointment__card--show", "Archie Cohen")
+    .should("not.exist");
   });
 });
