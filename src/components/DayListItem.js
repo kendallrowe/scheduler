@@ -13,6 +13,7 @@ export default function DayListItem(props) {
     <li
       className={listItemClass}
       onClick={props.setDay}
+      data-testid="day"
     >
       <h3>{props.name}</h3>
       {props.spots === 0 ? "no" : props.spots} spot{props.spots !== 1 && "s"} remaining

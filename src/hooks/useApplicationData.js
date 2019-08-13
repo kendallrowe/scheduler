@@ -40,7 +40,6 @@ const useApplicationData = () => {
         if (!state.appointments[action.id].interview && action.interview) {
           decreaseSpotsCount = -1;
         } 
-
         if (state.appointments[action.id].interview && !action.interview) {
           decreaseSpotsCount = 1;
         }
@@ -52,7 +51,6 @@ const useApplicationData = () => {
             if (item.id !== appointment.day_id) {
               return item;
             }
-
             return {
               ...item,
               spots: item.spots + decreaseSpotsCount
@@ -124,11 +122,8 @@ const useApplicationData = () => {
         interview: { ...interview }
       };
       
-      console.log("id: ", id);
-      console.log("interview: ", interview);
       return axios.put(`http://localhost:3001/api/appointments/${id}`, appointment)
       .then(response=> {
-        console.log("response: ", response);
         dispatch({
           type: SET_INTERVIEW, 
           id, 

@@ -16,18 +16,20 @@ const fixtures = {
     }
   ],
   appointments: {
-    "1": { id: 1, time: "12pm", interview: null },
+    "1": { id: 1, time: "12pm", interview: null, day_id: 1 },
     "2": {
       id: 2,
       time: "1pm",
+      day_id: 1,
       interview: { student: "Archie Cohen", interviewer: 2 }
     },
     "3": {
       id: 3,
       time: "2pm",
+      day_id: 2,
       interview: { student: "Leopold Silvers", interviewer: 4 }
     },
-    "4": { id: 4, time: "3pm", interview: null }
+    "4": { id: 4, time: "3pm", interview: null, day_id: 2 }
   },
   interviewers: {
     "1": {
@@ -81,6 +83,32 @@ export default {
   }),
 
   put: jest.fn(url => {
+    if (url.includes("http://localhost:3001/api/days")) {
+      return Promise.resolve({
+        status: 200,
+        statusText: "OK",
+        data: fixtures.days
+      });
+    }
+
+    if (url.includes("http://localhost:3001/api/appointments")) {
+      return Promise.resolve({
+        status: 200,
+        statusText: "OK",
+        data: fixtures.appointments
+      });
+    }
+
+    if (url.includes("http://localhost:3001/api/interviewers")) {
+      return Promise.resolve({
+        status: 200,
+        statusText: "OK",
+        data: fixtures.interviewers
+      });
+    }
+  }),
+
+  delete: jest.fn(url => {
     if (url.includes("http://localhost:3001/api/days")) {
       return Promise.resolve({
         status: 200,
