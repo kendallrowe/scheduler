@@ -124,9 +124,11 @@ const useApplicationData = () => {
         interview: { ...interview }
       };
       
-
+      console.log("id: ", id);
+      console.log("interview: ", interview);
       return axios.put(`http://localhost:3001/api/appointments/${id}`, appointment)
       .then(response=> {
+        console.log("response: ", response);
         dispatch({
           type: SET_INTERVIEW, 
           id, 

@@ -8,7 +8,8 @@ import { render,
   prettyDOM, 
   getAllByTestId,
   getByAltText,
-  getByPlaceholderText
+  getByPlaceholderText,
+  waitForElementToBeRemoved
 } from "@testing-library/react";
 
 import Application from "components/Application";
@@ -28,7 +29,7 @@ describe("Form", () => {
 
   it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
 
-    const { container } = render(<Application />);
+    const { container, debug } = render(<Application />);
     
     await waitForElement(() => getByText(container, "Archie Cohen"))
     const appointments = getAllByTestId(container, "appointment");
@@ -40,8 +41,11 @@ describe("Form", () => {
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
     
     fireEvent.click(getByText(appointment, "Save"));
-    await waitForElement(() => getByText(container, "Sylvia Palmer"))
-    console.log(prettyDOM(container));
+    
+    await waitForElementToBeRemoved(() =>  getByText(appointment, "SAVING"));
+    console.log(debug(container));
+
+    expect(getByText(appointment, "Lydia Miller-Jones")).toBeInTheDocument();
     
   });
 });
