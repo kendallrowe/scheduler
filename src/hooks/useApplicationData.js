@@ -70,7 +70,11 @@ const useApplicationData = () => {
       .catch(e => {
         reject(e)
       });
-    }).then(() => axios.get(`/api/appointments`));
+    }).then(() => 
+    Promise.all([
+      axios.get(`/api/days`),
+      axios.get(`/api/appointments`)
+    ]));
   };
 
   const deleteInterview = (id) => {
@@ -87,7 +91,11 @@ const useApplicationData = () => {
       .catch(e => {
         reject(e)
       });
-    }).then(() => axios.get(`/api/appointments`));
+    }).then(() => 
+      Promise.all([
+        axios.get(`/api/days`),
+        axios.get(`/api/appointments`)
+      ]));
   };
   
   return { 
