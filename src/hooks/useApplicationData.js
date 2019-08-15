@@ -17,8 +17,8 @@ const useApplicationData = () => {
     interviewer: null,
     interviewers: {}
   });
-  
-  useEffect(() => {
+
+  const axiosGetData = () => {
     Promise.all([
       axios.get(`/api/days`),
       axios.get(`/api/appointments`),
@@ -32,6 +32,10 @@ const useApplicationData = () => {
         interviewers: all[2].data 
       });
     });
+  }
+  
+  useEffect(() => {
+    axiosGetData();
 
     // Socket Connection
     // Web Socket connection on load
@@ -70,11 +74,7 @@ const useApplicationData = () => {
       .catch(e => {
         reject(e)
       });
-    }).then(() => 
-    Promise.all([
-      axios.get(`/api/days`),
-      axios.get(`/api/appointments`)
-    ]));
+    }).then(() => axiosGetData());
   };
 
   const deleteInterview = (id) => {
@@ -91,11 +91,7 @@ const useApplicationData = () => {
       .catch(e => {
         reject(e)
       });
-    }).then(() => 
-      Promise.all([
-        axios.get(`/api/days`),
-        axios.get(`/api/appointments`)
-      ]));
+    }).then(() => axiosGetData());
   };
   
   return { 
