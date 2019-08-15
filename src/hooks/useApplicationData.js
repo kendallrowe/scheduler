@@ -35,7 +35,7 @@ const useApplicationData = () => {
 
     // Socket Connection
     // Web Socket connection on load
-    const ws = new WebSocket('ws://');
+    const ws = new WebSocket('');
     dispatch({type: SET_SOCKET, socket: ws});
     // ws.addEventListener('open', () => {
     // });
