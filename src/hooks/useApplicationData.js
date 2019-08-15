@@ -35,7 +35,7 @@ const useApplicationData = () => {
 
     // Socket Connection
     // Web Socket connection on load
-    const ws = new WebSocket("wss://kr-scheduler-lhl.herokuapp.com");
+    const ws = new WebSocket("ws://localhost:3001/");
     dispatch({type: SET_SOCKET, socket: ws});
 
     ws.addEventListener('message', (event) => {
@@ -60,17 +60,16 @@ const useApplicationData = () => {
       
       return axios.put(`/api/appointments/${id}`, appointment)
       .then(response=> {
-        dispatch({
-          type: SET_INTERVIEW, 
-          id, 
-          interview 
-        })
-        resolve(response);
+        resolve(response)
       })
       .catch(e => {
         reject(e)
       });
-    })
+    }).then(() => dispatch({
+      type: SET_INTERVIEW, 
+      id, 
+      interview 
+    }));
   };
 
   const deleteInterview = (id) => {
