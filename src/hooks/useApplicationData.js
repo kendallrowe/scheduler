@@ -35,7 +35,7 @@ const useApplicationData = () => {
 
     // Socket Connection
     // Web Socket connection on load
-    const ws = new WebSocket('');
+    const ws = new WebSocket('ws://kr-scheduler-lhl.herokuapp.com');
     dispatch({type: SET_SOCKET, socket: ws});
     // ws.addEventListener('open', () => {
     // });
