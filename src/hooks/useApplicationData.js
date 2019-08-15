@@ -20,9 +20,9 @@ const useApplicationData = () => {
   
   useEffect(() => {
     Promise.all([
-      axios.get(`http://localhost:3001/api/days`),
-      axios.get(`http://localhost:3001/api/appointments`),
-      axios.get('http://localhost:3001/api/interviewers')
+      axios.get(`/api/days`),
+      axios.get(`/api/appointments`),
+      axios.get('/api/interviewers')
     ])
     .then(all => {
       dispatch({
@@ -35,7 +35,7 @@ const useApplicationData = () => {
 
     // Socket Connection
     // Web Socket connection on load
-    const ws = new WebSocket('ws://localhost:3001');
+    const ws = new WebSocket('ws://');
     dispatch({type: SET_SOCKET, socket: ws});
     // ws.addEventListener('open', () => {
     // });
