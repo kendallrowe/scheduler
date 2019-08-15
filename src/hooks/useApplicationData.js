@@ -35,10 +35,9 @@ const useApplicationData = () => {
 
     // Socket Connection
     // Web Socket connection on load
-    const ws = new WebSocket('wss://kr-scheduler-lhl.herokuapp.com');
+    const ws = new WebSocket("wss://kr-scheduler-lhl.herokuapp.com");
     dispatch({type: SET_SOCKET, socket: ws});
-    // ws.addEventListener('open', () => {
-    // });
+
     ws.addEventListener('message', (event) => {
       dispatch(JSON.parse(event.data));
     });
@@ -59,7 +58,7 @@ const useApplicationData = () => {
         interview: { ...interview }
       };
       
-      return axios.put(`http://localhost:3001/api/appointments/${id}`, appointment)
+      return axios.put(`/api/appointments/${id}`, appointment)
       .then(response=> {
         dispatch({
           type: SET_INTERVIEW, 
@@ -76,7 +75,7 @@ const useApplicationData = () => {
 
   const deleteInterview = (id) => {
     return new Promise((resolve, reject) => {
-      return axios.delete(`http://localhost:3001/api/appointments/${id}`)
+      return axios.delete(`/api/appointments/${id}`)
       .then(response => {
         dispatch({ 
           type: SET_INTERVIEW, 

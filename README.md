@@ -4,7 +4,7 @@ The LHL Interview Scheduler is a single page application built using React. This
 
 The application persists data using a separate API server using a PostgreSQL database to which it communicates via HTTP JSON formatted requests.
 
-As stretch goals for this project, the application is hosted on Heroku (), features the use of  Websockets for live update rendering across browsers, and a complete suite of unit, integration, and end to end testing.
+As stretch goals for this project, the application is [hosted on Netlify](https://adoring-morse-d140ea.netlify.com), features the use of  Websockets for live update rendering across browsers, and a complete suite of unit, integration, and end to end testing.
 
 ## Setup
 
