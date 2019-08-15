@@ -6,6 +6,8 @@ The application persists data using a separate API server using a PostgreSQL dat
 
 As stretch goals for this project, the application is [hosted on Netlify](https://adoring-morse-d140ea.netlify.com), features the use of  Websockets for live update rendering across browsers, and a complete suite of unit, integration, and end to end testing.
 
+[![CircleCI](https://circleci.com/gh/kendallrowe/scheduler.svg?style=shield)](https://circleci.com/gh/kendallrowe/scheduler)
+
 ## Setup
 
 Install dependencies with `npm install`.
@@ -33,11 +35,18 @@ Install dependencies with `npm install`.
 
 !["Click confirm and your interview will become a distant memory. "](public/docs/deleting-status.png)
 
-## Running Webpack Development Server
+## Dependencies
 
-```sh
-npm start
-```
+- Classnames
+- Normalize
+- React
+- React Testing Library
+
+## Getting Started
+- Install all dependencies (using the `npm install` command).
+- Run the development web server using the `npm start` command.
+- View the server at [http://localhost:3000/](http://localhost:3000/)
+- NOTE: The server makes API calls to the Heroku server [https://kr-scheduler-lhl.herokuapp.com/](https://kr-scheduler-lhl.herokuapp.com/)
 
 ## Running Jest Test Framework
 
