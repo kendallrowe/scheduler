@@ -41,13 +41,13 @@ const reducer = (state, action) => {
       return {
         ...state,
         appointments,
-        days: state.days.map((item) => {
-          if (item.id !== appointment.day_id) {
-            return item;
+        days: state.days.map((day) => {
+          if ((!day.appointments.find(a => a === action.id))) {
+            return day;
           }
           return {
-            ...item,
-            spots: item.spots + decreaseSpotsCount
+            ...day,
+            spots: day.spots + decreaseSpotsCount
           };
         })
       };

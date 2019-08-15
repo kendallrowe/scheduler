@@ -74,7 +74,7 @@ const useApplicationData = () => {
       .catch(e => {
         reject(e)
       });
-    }).then(() => axiosGetData());
+    });
   };
 
   const deleteInterview = (id) => {
@@ -91,7 +91,7 @@ const useApplicationData = () => {
       .catch(e => {
         reject(e)
       });
-    }).then(() => axiosGetData());
+    });
   };
   
   return { 
